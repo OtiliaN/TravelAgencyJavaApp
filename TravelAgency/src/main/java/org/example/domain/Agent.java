@@ -7,7 +7,6 @@ public class Agent extends Entity<Long>{
     private String password;
 
     public Agent(Long id, String name, String password) {
-        /*TODO: ? Modify the id to be string(username)*/
         this.setId(id);
         this.name = name;
         this.password = password;
