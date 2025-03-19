@@ -8,8 +8,7 @@ public class Flight extends Entity<Long> {
     private String airport;
     private int availableSeats;
 
-    public Flight(Long id, String destination,  LocalDateTime departureDateTime, String airport, int seats) {
-        this.setId(id);
+    public Flight(String destination,  LocalDateTime departureDateTime, String airport, int seats) {
         this.destination = destination;
         this.departureDateTime = departureDateTime;
         this.airport = airport;
