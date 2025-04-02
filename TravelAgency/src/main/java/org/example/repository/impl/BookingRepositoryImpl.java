@@ -17,9 +17,10 @@ public class BookingRepositoryImpl implements IBookingRepository {
     private static final Logger logger = LogManager.getLogger();
     private FlightRepositoryImpl flightRepository;
 
-    public BookingRepositoryImpl(Properties properties) {
+    public BookingRepositoryImpl(Properties properties, FlightRepositoryImpl flightRepository) {
         logger.info("Initialising Booking Repository with properties: {}", properties);
         jdbcUtils = new JdbcUtils(properties);
+        this.flightRepository = flightRepository;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class BookingRepositoryImpl implements IBookingRepository {
     public Optional<Booking> save(Booking entity) {
         logger.traceEntry("saving booking {} ", entity);
         Connection connection = jdbcUtils.getConnection();
-        try (PreparedStatement preStmt = connection.prepareStatement("insert into bookings(id_flight, passengers, numbersOfSeats) values (?,?,?)")) {
+        try (PreparedStatement preStmt = connection.prepareStatement("insert into bookings(id_flight, passengers, numberOfSeats) values (?,?,?)")) {
             preStmt.setLong(1, entity.getFlight().getId());
 
             String clientsList = String.join(",", entity.getPassengers());
@@ -84,6 +85,12 @@ public class BookingRepositoryImpl implements IBookingRepository {
 
             int result = preStmt.executeUpdate();
             logger.trace("Saved {} instances", result);
+
+            // Update available seats in Flight
+            Flight flight = entity.getFlight();
+            flight.setAvailableSeats(flight.getAvailableSeats() - entity.getNumberOfSeats());
+            flightRepository.update(flight);
+
             return Optional.of(entity);
         } catch (SQLException exception) {
             logger.error(exception);

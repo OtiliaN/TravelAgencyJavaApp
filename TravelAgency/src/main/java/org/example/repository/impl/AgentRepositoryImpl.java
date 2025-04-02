@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.example.domain.Agent;
 import org.example.repository.interfaces.IAgentRepository;
+import org.example.utils.PasswordUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -74,7 +75,8 @@ public class AgentRepositoryImpl implements IAgentRepository {
         Connection connection = jdbcUtils.getConnection();
         try (PreparedStatement preStmt = connection.prepareStatement("insert into agents(name,password) values (?,?)")) {
             preStmt.setString(1, entity.getName());
-            preStmt.setString(2, entity.getPassword());
+            String hashedPassword = PasswordUtils.hashPassword(entity.getPassword());
+            preStmt.setString(2, hashedPassword);
             int result = preStmt.executeUpdate();
             logger.trace("Saved {} instances", result);
             return Optional.of(entity);
@@ -93,6 +95,30 @@ public class AgentRepositoryImpl implements IAgentRepository {
 
     @Override
     public Optional<Agent> update(Agent entity) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Agent> findByName(String name) {
+        logger.traceEntry("searching agent with name {} ", name);
+
+        Connection connection = jdbcUtils.getConnection();
+        try (PreparedStatement preStmt = connection.prepareStatement("Select * from Agents where name=?")) {
+            preStmt.setString(1, name);
+            try (ResultSet result = preStmt.executeQuery()) {
+                if (result.next()) {
+                    Long id = result.getLong("id");
+                    String hashedPassword = result.getString("password");
+
+                    Agent agent = new Agent(name, hashedPassword);
+                    agent.setId(id);
+                    return Optional.of(agent);
+                }
+            }
+        } catch (SQLException exception) {
+            logger.error(exception);
+            System.out.println("Error DB " + exception);
+        }
         return Optional.empty();
     }
 }
