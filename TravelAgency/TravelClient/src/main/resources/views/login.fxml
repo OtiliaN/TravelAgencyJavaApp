@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.LoginController">
+    <VBox alignment="CENTER" prefHeight="297.0" prefWidth="478.0" spacing="15"
+          style="-fx-background-color: linear-gradient(to bottom, #FFF8E1, #FFCC80); -fx-padding: 30px;">
+
+        <!-- Titlu -->
+        <Label prefHeight="30.0" prefWidth="133.0"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #6A0572;"
+               text="TravelAgency" />
+
+        <!-- Caseta de login -->
+        <VBox alignment="CENTER" prefHeight="186.0" prefWidth="426.0" spacing="10"
+              style="-fx-background-color: #FAF3E0; -fx-padding: 20px; -fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+
+            <!-- Username -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #8E44AD; -fx-min-width: 80px;" text="Username:" />
+                <TextField fx:id="nameField" prefHeight="27.0" prefWidth="260.0" promptText="Enter your username"
+                           style="-fx-background-color: #FFF3E0; -fx-border-color: #DAB6FC; -fx-border-radius: 5px;" />
+            </HBox>
+
+            <!-- Password -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #8E44AD; -fx-min-width: 80px;" text="Password:" />
+                <PasswordField fx:id="passwordField" prefHeight="27.0" prefWidth="260.0" promptText="Enter your password"
+                               style="-fx-background-color: #FFF3E0; -fx-border-color: #DAB6FC; -fx-border-radius: 5px;" />
+            </HBox>
+
+            <!-- Buton Login -->
+            <HBox alignment="CENTER">
+                <Button onAction="#handleLogIn"
+                        style="-fx-background-color: #D980FA; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 10px; -fx-padding: 5px 20px;"
+                        text="Login" />
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>
