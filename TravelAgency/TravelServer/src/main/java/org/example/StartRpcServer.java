@@ -5,12 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.example.persistance.impl.AgentRepositoryImpl;
 import org.example.persistance.impl.BookingRepositoryImpl;
 import org.example.persistance.impl.FlightRepositoryImpl;
-import org.example.persistance.interfaces.IAgentRepository;
-import org.example.persistance.interfaces.IBookingRepository;
-import org.example.persistance.interfaces.IFlightRepository;
 import org.example.server.ServiceImpl;
-import org.example.utils.AbstractServer;
-import org.example.utils.TravelRpcConcurrentServer;
+import org.example.network.utils.AbstractServer;
+import org.example.network.utils.TravelRpcConcurrentServer;
 
 
 import java.io.IOException;

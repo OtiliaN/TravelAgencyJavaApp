@@ -1,5 +1,5 @@
 // Îmbunătățiri pentru TravelClientRpcReflectionWorker.java
-package org.example.rpcprotocol;
+package org.example.network.rpcprotocol;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,6 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TravelClientRpcReflectionWorker implements Runnable, IObserver {
     private final IService server;

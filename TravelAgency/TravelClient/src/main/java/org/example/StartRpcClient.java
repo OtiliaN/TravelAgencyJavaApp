@@ -1,14 +1,14 @@
 package org.example;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.controller.LoginController;
-import org.example.rpcprotocol.TravelServicesRpcProxy;
+import org.example.network.protobufferprotocol.ProtobufProxy;
+import org.example.network.rpcprotocol.TravelServicesRpcProxy;
 import org.example.services.IService;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class StartRpcClient extends Application {
         System.out.println("Connecting to server " + serverIP + ":" + serverPort);
         System.out.println("Starting client...");
 
-        IService travelServices = new TravelServicesRpcProxy(serverIP, serverPort);
+        IService travelServices = new ProtobufProxy(serverIP, serverPort);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         AnchorPane setLayout = loader.load();

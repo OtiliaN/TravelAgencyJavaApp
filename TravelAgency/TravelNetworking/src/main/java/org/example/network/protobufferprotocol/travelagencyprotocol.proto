@@ -1,0 +1,78 @@
+syntax = "proto3";
+package org.protocol;
+
+option java_package = "org.example.network.protobufferprotocol";
+option java_outer_classname = "Protobufs";
+
+// Enum pentru tipurile de cereri (RequestType)
+enum RequestType {
+  REQUEST_LOGIN = 0;
+  REQUEST_LOGOUT = 1;
+  REQUEST_GET_ALL_FLIGHTS = 2;
+  REQUEST_GET_FLIGHTS_BY_DESTINATION_AND_DATE = 3;
+  REQUEST_BUY_TICKETS = 4;
+}
+
+// Enum pentru tipurile de răspunsuri (ResponseType)
+enum ResponseType {
+  RESPONSE_OK = 0;
+  RESPONSE_ERROR = 1;
+  RESPONSE_LOGIN = 2;
+  RESPONSE_LOGOUT = 3;
+  RESPONSE_GET_ALL_FLIGHTS = 4;
+  RESPONSE_GET_FLIGHTS_BY_DESTINATION_AND_DATE = 5;
+  RESPONSE_BUY_TICKETS = 6;
+  RESPONSE_MODIFIED_FLIGHT = 7;
+}
+
+// Mesaj pentru Request
+message Request {
+  RequestType requestType = 1;
+  string username = 2; // Pentru LOGIN
+  string password = 3; // Pentru LOGIN
+  Agent agent = 4; // Pentru LOGOUT
+  Booking booking = 5; // Pentru BUY_TICKETS
+  Flight flight = 6; // Pentru BUY_TICKETS sau modificare de zbor
+  repeated string passengers = 7; // Lista pasagerilor pentru BUY_TICKETS
+  int32 numberOfSeats = 8; // Numărul de locuri pentru BUY_TICKETS
+  string destination = 9; // Pentru GET_FLIGHTS_BY_DESTINATION_AND_DATE
+  string departureDate = 10; // Data plecării (ISO 8601)
+  string startTime = 11; // Ora de start (ISO 8601)
+  string endTime = 12; // Ora de sfârșit (ISO 8601)
+  int64 id = 13; // ID pentru identificare
+}
+
+// Mesaj pentru Response
+message Response {
+  ResponseType responseType = 1;
+  string errorMessage = 2; // Mesaj de eroare, dacă există
+  Agent agent = 3; // Răspuns pentru LOGIN/LOGOUT
+  Booking booking = 4; // Răspuns pentru BUY_TICKETS
+  repeated Flight flights = 5; // Răspuns pentru GET_ALL_FLIGHTS sau GET_FLIGHTS_BY_DESTINATION_AND_DATE
+  repeated Booking bookings = 6; // Răspuns pentru rezervări multiple
+  Flight flight = 7; // Răspuns pentru un zbor modificat
+}
+
+// Mesaj pentru Agent
+message Agent {
+  int64 id = 1; // ID-ul agentului
+  string name = 2; // Numele agentului
+  string password = 3; // Parola agentului
+}
+
+// Mesaj pentru Booking
+message Booking {
+  int64 id = 1; // ID-ul rezervării
+  Flight flight = 2; // Zborul asociat
+  repeated string passengers = 3; // Lista pasagerilor
+  int32 numberOfSeats = 4; // Numărul de locuri rezervate
+}
+
+// Mesaj pentru Flight
+message Flight {
+  int64 id = 1; // ID-ul zborului
+  string destination = 2; // Destinația
+  string departureDateTime = 3; // Data și ora plecării (ISO 8601)
+  string airport = 4; // Aeroportul
+  int32 availableSeats = 5; // Numărul de locuri disponibile
+}

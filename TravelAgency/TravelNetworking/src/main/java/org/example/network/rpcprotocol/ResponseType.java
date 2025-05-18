@@ -1,4 +1,4 @@
-package org.example.rpcprotocol;
+package org.example.network.rpcprotocol;
 
 public enum ResponseType {
     OK,

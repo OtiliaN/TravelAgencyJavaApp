@@ -1,15 +1,12 @@
 // Îmbunătățiri pentru clasa TravelRpcConcurrentServer
-package org.example.utils;
+package org.example.network.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.rpcprotocol.TravelClientRpcReflectionWorker;
+import org.example.network.rpcprotocol.TravelClientRpcReflectionWorker;
 import org.example.services.IService;
 
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class TravelRpcConcurrentServer extends AbsConcurrentServer {
     private IService travelServices;

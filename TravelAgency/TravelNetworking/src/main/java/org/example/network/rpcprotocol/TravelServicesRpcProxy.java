@@ -1,6 +1,6 @@
 
 // Îmbunătățiri pentru TravelServicesRpcProxy.java
-package org.example.rpcprotocol;
+package org.example.network.rpcprotocol;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
