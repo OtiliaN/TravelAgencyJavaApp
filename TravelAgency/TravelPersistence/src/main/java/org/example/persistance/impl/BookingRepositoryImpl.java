@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.example.domain.Booking;
 import org.example.domain.Flight;
 import org.example.persistance.interfaces.IBookingRepository;
+import org.example.persistance.interfaces.IFlightRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,9 +16,9 @@ import java.util.*;
 public class BookingRepositoryImpl implements IBookingRepository {
     private JdbcUtils jdbcUtils;
     private static final Logger logger = LogManager.getLogger();
-    private FlightRepositoryImpl flightRepository;
+    private IFlightRepository flightRepository;
 
-    public BookingRepositoryImpl(Properties properties, FlightRepositoryImpl flightRepository) {
+    public BookingRepositoryImpl(Properties properties, IFlightRepository flightRepository) {
         logger.info("Initialising Booking Repository with properties: {}", properties);
         jdbcUtils = new JdbcUtils(properties);
         this.flightRepository = flightRepository;

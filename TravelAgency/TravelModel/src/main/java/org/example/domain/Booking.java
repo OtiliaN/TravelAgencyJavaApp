@@ -1,9 +1,15 @@
 package org.example.domain;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 import java.util.List;
+
 
 public class Booking extends Entity<Long>{
     private Flight flight;
+
     private List<String> passengers;
     private int numberOfSeats;
 

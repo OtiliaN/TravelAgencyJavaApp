@@ -2,12 +2,18 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.persistance.hibernate_impl.HibernateAgentRepository;
+import org.example.persistance.hibernate_impl.HibernateFlightRepository;
 import org.example.persistance.impl.AgentRepositoryImpl;
 import org.example.persistance.impl.BookingRepositoryImpl;
 import org.example.persistance.impl.FlightRepositoryImpl;
+import org.example.persistance.interfaces.IAgentRepository;
+import org.example.persistance.interfaces.IBookingRepository;
+import org.example.persistance.interfaces.IFlightRepository;
 import org.example.server.ServiceImpl;
 import org.example.network.utils.AbstractServer;
 import org.example.network.utils.TravelRpcConcurrentServer;
+import org.example.services.IService;
 
 
 import java.io.IOException;
@@ -28,11 +34,11 @@ public class StartRpcServer {
             return;
         }
 
-        AgentRepositoryImpl agentRepository = new AgentRepositoryImpl(serverProps);
-        FlightRepositoryImpl flightRepository = new FlightRepositoryImpl(serverProps);
-        BookingRepositoryImpl bookingRepository = new BookingRepositoryImpl(serverProps, flightRepository);
+        IAgentRepository agentRepository = new HibernateAgentRepository();
+        IFlightRepository flightRepository = new HibernateFlightRepository();
+        IBookingRepository bookingRepository = new BookingRepositoryImpl(serverProps, flightRepository);
 
-        ServiceImpl travelService = new ServiceImpl(agentRepository, bookingRepository, flightRepository);
+        IService travelService = new ServiceImpl(agentRepository, bookingRepository, flightRepository);
 
         int serverPort = defaultPort;
         try{

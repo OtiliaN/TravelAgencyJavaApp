@@ -43,7 +43,8 @@ public class StartRpcClient extends Application {
         System.out.println("Connecting to server " + serverIP + ":" + serverPort);
         System.out.println("Starting client...");
 
-        IService travelServices = new ProtobufProxy(serverIP, serverPort);
+        //IService travelServices = new ProtobufProxy(serverIP, serverPort);
+        IService travelServices = new TravelServicesRpcProxy(serverIP, serverPort);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         AnchorPane setLayout = loader.load();
