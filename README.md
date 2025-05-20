@@ -1,0 +1,1 @@
+ORM with Hibernate (in Java) on Entity, Flight and Agent. Added HibernateRepositoryImplement for each entity. Create new tables for flights (flights_hibernate) and agents (agents_hibernate) through ORM from TravelModel. Booking remained the same. In ServiceImpl the HibernateRepositoryImpl have been called, instead of clasic repositories. 
