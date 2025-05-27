@@ -1,0 +1,4 @@
+Utilizatori si parole C# si Java:
+("Lucian Serban", "12345");
+("Pop Maria", "parola");
+("Andreica John", "12345");

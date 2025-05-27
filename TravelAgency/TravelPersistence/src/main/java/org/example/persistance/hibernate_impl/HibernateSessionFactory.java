@@ -16,9 +16,21 @@ public class HibernateSessionFactory {
     }
 
     private static SessionFactory createNewSessionFactory() {
-        return new Configuration()
-                .addAnnotatedClass(Agent.class)
-                .addAnnotatedClass(Flight.class)
-                .buildSessionFactory();
+        Configuration configuration = new Configuration();
+
+        try {
+            configuration.addAnnotatedClass(Agent.class);
+            configuration.addAnnotatedClass(Flight.class);
+
+            // Încarcă hibernate.properties din classpath
+            configuration.setProperties(new java.util.Properties() {{
+                load(HibernateSessionFactory.class.getClassLoader()
+                        .getResourceAsStream("hibernate.properties"));
+            }});
+
+            return configuration.buildSessionFactory();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create SessionFactory: " + e.getMessage(), e);
+        }
     }
 }

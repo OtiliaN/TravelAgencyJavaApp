@@ -6,12 +6,16 @@ import org.example.validators.ValidationException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class HibernateFlightRepository implements IFlightRepository {
+
 
     @Override
     public Optional<Flight> findOne(Long id) {
@@ -44,8 +48,22 @@ public class HibernateFlightRepository implements IFlightRepository {
 
     @Override
     public Optional<Flight> delete(Long id) {
-        return Optional.empty();
+        Transaction tx = null;
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            Flight flight = session.get(Flight.class, id);
+            if (flight == null) {
+                return Optional.empty();
+            }
+            tx = session.beginTransaction();
+            session.remove(flight);
+            tx.commit();
+            return Optional.of(flight);
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw new ValidationException("Could not delete flight: " + e.getMessage());
+        }
     }
+
 
     @Override
     public Optional<Flight> update(Flight entity) {
