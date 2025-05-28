@@ -26,7 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.49.1.0'
 }
 

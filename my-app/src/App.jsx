@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import "./index.css"; // nou
+import "./index.css";
 
 const API_URL = "http://localhost:8080/org/flights";
 
@@ -15,6 +15,9 @@ function App() {
         availableSeats: 0,
     });
 
+    //initialize WebSocket connection
+    const stompClientRef = useRef(null);
+
     //get all flights from server
     const fetchFlights = async () => {
         try {
@@ -25,9 +28,20 @@ function App() {
         }
     };
 
-    //load flights when the component mounts
     useEffect(() => {
         fetchFlights();
+
+        const socket = new WebSocket("ws://localhost:8080/ws/flights");
+
+        socket.onmessage = (event) => {
+            const message = event.data;
+            console.log("WebSocket message:", message);
+            fetchFlights();
+        };
+
+        return () => {
+            socket.close();
+        };
     }, []);
 
     //reset form data la fiecare modificare

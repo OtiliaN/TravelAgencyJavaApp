@@ -2,9 +2,11 @@ package org.example;
 
 import org.example.domain.Flight;
 import org.example.persistance.interfaces.IFlightRepository;
+import org.example.websockets.FlightWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -14,9 +16,11 @@ public class FlightController {
     @Autowired
     private IFlightRepository flightRepository;
 
+
     @RequestMapping(method = RequestMethod.POST)
     public Flight create(@RequestBody Flight flight){
         flightRepository.save(flight);
+        FlightWebSocketHandler.broadcast("added:" + flight.getId());
         return flight;
     }
 
@@ -25,6 +29,7 @@ public class FlightController {
         System.out.println("Updating flight...");
         flight.setId(id);
         flightRepository.update(flight);
+        FlightWebSocketHandler.broadcast("updated:" + flight.getId());
         return flight;
     }
 
@@ -32,7 +37,10 @@ public class FlightController {
     public ResponseEntity<?> delete(@PathVariable String id){
         System.out.println("Deleting flight ..." + id);
         try{
+            var flightOpt = flightRepository.findOne(Long.parseLong(id));
+            Flight deletedFlight = flightOpt.get();
             flightRepository.delete(Long.parseLong(id));
+            FlightWebSocketHandler.broadcast("deleted:" + id);
             return new ResponseEntity<Flight>(HttpStatus.OK);
         }catch (Exception ex){
             System.out.println("Ctrl Delete flight exception");
