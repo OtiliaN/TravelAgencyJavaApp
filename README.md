@@ -1,4 +1,4 @@
-# TravelAgencyJavaApp
+# Travel Agency Java App
 
 A modular travel agency system implemented in Java, built step-by-step to explore and experiment with various software development technologies and architectural patterns. The project evolved from basic client-server communication to a modern RESTful architecture with a web frontend and real-time updates via WebSockets
 
