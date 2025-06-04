@@ -1,5 +1,4 @@
-Cerinta: Notificarea clienților web (observer) folosind websockets când se adaugă/șterge/modifică o resursă. Trebuie să modificați temele 6 și 7 (Servicii REST și Client Web pentru servicii REST)
-----
+Cerinta: Notificarea clienților web (observer) folosind websockets când se adaugă/șterge/modifică o resursă. 
 Se folosesc WebSockets si se implementeaza practic patternul Observer intre server si clienti. 
   - Am activat WebSockets in Spring Boot: am creat o configuratie WebSocketConfig care deschide un canal de comunicare;
   - Am creat un FlightWebSocketHandler:
