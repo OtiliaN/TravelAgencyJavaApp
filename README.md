@@ -2,7 +2,7 @@
 
 A modular travel agency system implemented in Java, built step-by-step to explore and experiment with various software development technologies and architectural patterns. The project evolved from basic client-server communication to a modern RESTful architecture with a web frontend and real-time updates via WebSockets
 
-## 📌 Overview
+## Overview
 
 Tourism agencies use a central flight booking system to purchase tickets for their clients. Each employee uses a desktop or web client to:
 - Log in to the system
@@ -11,7 +11,7 @@ Tourism agencies use a central flight booking system to purchase tickets for the
 - View updated flight information in real-time after bookings
 - Log out
 
-## 🧱 Tech Stack
+## Tech Stack
 
 - **Java (Gradle)** – main backend and client logic
 - **JavaFX** – desktop GUI
@@ -22,7 +22,7 @@ Tourism agencies use a central flight booking system to purchase tickets for the
 - **WebSockets** – real-time communication
 - **Protocol Buffers (ProtoBuf)** – for cross-platform communication (Java client & C# server)
 
-## 🚀 Project Phases
+## Project Phases
 
 ### Phase 1 – Java Client-Server with Custom RPC
 - Implemented client-server architecture using a custom RPC protocol
@@ -60,9 +60,9 @@ Tourism agencies use a central flight booking system to purchase tickets for the
 - Integrated WebSocket support to notify all clients when flight data is updated
 - Implemented the **Observer** pattern between server and all connected clients
 
-> 🔥 This is the current version on the `main` branch.
+>  This is the current version on the `main` branch.
 
-## 🧠 What I Learned
+## What I Learned
 
 - Structuring large Java projects into modules
 - Implementing layered architecture (MVC + Services + Persistence)
