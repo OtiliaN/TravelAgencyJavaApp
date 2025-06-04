@@ -1,11 +1,13 @@
-Cerinta: Notificarea clienților web (observer) folosind websockets când se adaugă/șterge/modifică o resursă. 
-Se folosesc WebSockets si se implementeaza practic patternul Observer intre server si clienti. 
-  - Am activat WebSockets in Spring Boot: am creat o configuratie WebSocketConfig care deschide un canal de comunicare;
-  - Am creat un FlightWebSocketHandler:
-      - serverul pastreaza o lista cu toti clientii conectati prin WebSocket
-      - cand apare o modificare, serverul trimite un mesaj la toti clientii
-  - Se modifica controllerul REST (FlightController), dupa fiecare operatie serverul trimite un mesaj WebSocket catre toti clientii
-  - Actualizam clientul (aplicatia React):
-      - când clientul primește un mesaj de la server, refolosește fetchFlights() ca să reîncarce automat lista zborurilor.
+## Real-time Updates with WebSockets
 
-Toți utilizatorii aplicației web văd în timp real modificările asupra zborurilor, fără a fi nevoie să reîncarce manual pagina.
+WebSockets are used to implement the Observer pattern between the server and connected web clients.
+
+- WebSockets were enabled in the Spring Boot application by creating a `WebSocketConfig` class that opens a communication channel.
+- A `FlightWebSocketHandler` was created:
+  - The server keeps a list of all clients connected via WebSocket.
+  - Whenever a change occurs (add, delete, or update), the server sends a message to all connected clients.
+- The REST controller (`FlightController`) was updated to send a WebSocket message after each operation that modifies flights.
+- The React client was also updated:
+  - When a message is received from the server, it automatically calls `fetchFlights()` to reload the list of flights in real-time.
+
+All users of the web application can see changes to the flight data in real-time, without needing to manually refresh the page.
